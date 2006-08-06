@@ -17,7 +17,7 @@ Source0:	http://bughost.org/%{modname}/daemon/%{name}-%{version}.tgz
 URL:		http://ipw3945.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.228
 Requires(post,preun):	/sbin/chkconfig
-Requires:	kernel%{_alt_kernel}-net-%{modname}
+Requires:	%{modname}
 BuildArch:	noarch
 #ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
