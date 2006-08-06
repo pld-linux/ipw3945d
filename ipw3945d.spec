@@ -8,7 +8,7 @@
 Summary:	The regulatory daemon for controlling and configuring ipw3945 cards.
 Name:		ipw3945d
 Version:	1.7.22
-Release:	0.1
+Release:	0.2
 License:	Intel Limited patents license
 Group:		Applications/demon
 Source0:	http://bughost.org/%{modname}/daemon/%{name}-%{version}.tgz
@@ -35,10 +35,10 @@ support for IEEE 802.11h (DFS and TPC).
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_sysconfdir}/rc.d/init.d}
+install -d $RPM_BUILD_ROOT{/sbin,%{_sysconfdir}/rc.d/init.d}
 
-install x86/%{name} $RPM_BUILD_ROOT%{_bindir}
-#install x86_64/%{name} $RPM_BUILD_ROOT%{_bindir}
+install x86/%{name} $RPM_BUILD_ROOT/sbin
+#install x86_64/%{name} $RPM_BUILD_ROOT%/sbin
 #install $SOURCE1	 $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/%{name}
 
 %clean
@@ -59,6 +59,6 @@ fi
 %files
 %defattr(644,root,root,755)
 %doc LICENSE.ipw3945d  README.ipw3945d
-%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) /sbin/*
 #%%attr(754,root,root) /etc/rc.d/init.d/%{name}
 #%%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
