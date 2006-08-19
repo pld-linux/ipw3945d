@@ -1,50 +1,56 @@
 #TODO
 # - rc.init script
-# - description, summary
-# - exclude arch
 #
-%define		modname		ipw3945
-
-Summary:	The regulatory daemon for controlling and configuring ipw3945 cards.
+Summary:	The regulatory daemon for controlling and configuring ipw3945 cards
+Summary(pl):	Demon do kontrolowania i konfigurowania kart ipw3945
 Name:		ipw3945d
 Version:	1.7.22
 Release:	0.2
 License:	Intel Limited patents license
 Group:		Applications/demon
-Source0:	http://bughost.org/%{modname}/daemon/%{name}-%{version}.tgz
+Source0:	http://bughost.org/ipw3945/daemon/%{name}-%{version}.tgz
 # Source0-md5:	097888f5be05eb2b9b87dcdbeeb948ce
 #Source1:	%{name}-rc.init
 URL:		http://ipw3945.sourceforge.net/
 BuildRequires:	rpmbuild(macros) >= 1.228
 Requires(post,preun):	/sbin/chkconfig
-Requires:	%{modname}
-BuildArch:	noarch
-#ExclusiveArch:	%{ix86}
+Requires:	rc-scripts
+ExclusiveArch:	%{ix86} %{x8664}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 The regulatory daemon is responsible for controlling and configuring
 aspects of the hardware required to operate the device within
-compliance of various regulatory agencies.  This includes controlling
+compliance of various regulatory agencies. This includes controlling
 which channels are allowed to do active/passive scanning, transmit
 power levels, which channels are allowed to be transmitted on, and 
 support for IEEE 802.11h (DFS and TPC).
+
+%description -l pl
+Demon reguluj±cy jest odpowiedzialny za kontrolowanie i konfigurowanie
+sprzêtu wymagane do u¿ywania urz±dzeñ zgodnie z ¿±daniami agencji
+reguluj±cych. Obejmuje to kontrolê, których kana³ów mo¿na u¿ywaæ do
+aktywnego i pasywnego skanowania oraz transmisji, kontrolê poziomu
+sygna³u transmisji oraz obs³ugê IEEE 802.11h (DFS i TPC).
 
 %prep
 %setup -q
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{/sbin,%{_sysconfdir}/rc.d/init.d}
+install -d $RPM_BUILD_ROOT{/sbin,/etc/rc.d/init.d}
 
+%ifarch %{ix86}
 install x86/%{name} $RPM_BUILD_ROOT/sbin
-#install x86_64/%{name} $RPM_BUILD_ROOT%/sbin
-#install $SOURCE1	 $RPM_BUILD_ROOT%{_sysconfdir}/rc.d/init.d/%{name}
+%endif
+%ifarch %{x8664}
+install x86_64/%{name} $RPM_BUILD_ROOT%/sbin
+%endif
+
+#install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
-
-%postun
 
 %post 
 /sbin/chkconfig --add %{name}
@@ -58,7 +64,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc LICENSE.ipw3945d  README.ipw3945d
+%doc LICENSE.ipw3945d README.ipw3945d
 %attr(755,root,root) /sbin/*
 #%%attr(754,root,root) /etc/rc.d/init.d/%{name}
 #%%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
