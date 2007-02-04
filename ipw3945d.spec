@@ -44,7 +44,7 @@ install -d $RPM_BUILD_ROOT{/sbin,/etc/rc.d/init.d}
 install x86/%{name} $RPM_BUILD_ROOT/sbin
 %endif
 %ifarch %{x8664}
-install x86_64/%{name} $RPM_BUILD_ROOT%/sbin
+install x86_64/%{name} $RPM_BUILD_ROOT/sbin
 %endif
 
 #install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/%{name}
