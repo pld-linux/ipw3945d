@@ -2,7 +2,7 @@
 # - rc.init script
 #
 Summary:	The regulatory daemon for controlling and configuring ipw3945 cards
-Summary(pl.UTF-8):   Demon do kontrolowania i konfigurowania kart ipw3945
+Summary(pl.UTF-8):	Demon do kontrolowania i konfigurowania kart ipw3945
 Name:		ipw3945d
 Version:	1.7.22
 Release:	0.2
