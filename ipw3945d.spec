@@ -2,7 +2,7 @@
 # - rc.init script
 #
 Summary:	The regulatory daemon for controlling and configuring ipw3945 cards
-Summary(pl):	Demon do kontrolowania i konfigurowania kart ipw3945
+Summary(pl.UTF-8):   Demon do kontrolowania i konfigurowania kart ipw3945
 Name:		ipw3945d
 Version:	1.7.22
 Release:	0.2
@@ -26,12 +26,12 @@ which channels are allowed to do active/passive scanning, transmit
 power levels, which channels are allowed to be transmitted on, and 
 support for IEEE 802.11h (DFS and TPC).
 
-%description -l pl
-Demon reguluj±cy jest odpowiedzialny za kontrolowanie i konfigurowanie
-sprzêtu wymagane do u¿ywania urz±dzeñ zgodnie z ¿±daniami agencji
-reguluj±cych. Obejmuje to kontrolê, których kana³ów mo¿na u¿ywaæ do
-aktywnego i pasywnego skanowania oraz transmisji, kontrolê poziomu
-sygna³u transmisji oraz obs³ugê IEEE 802.11h (DFS i TPC).
+%description -l pl.UTF-8
+Demon regulujÄ…cy jest odpowiedzialny za kontrolowanie i konfigurowanie
+sprzÄ™tu wymagane do uÅ¼ywania urzÄ…dzeÅ„ zgodnie z Å¼Ä…daniami agencji
+regulujÄ…cych. Obejmuje to kontrolÄ™, ktÃ³rych kanaÅ‚Ã³w moÅ¼na uÅ¼ywaÄ‡ do
+aktywnego i pasywnego skanowania oraz transmisji, kontrolÄ™ poziomu
+sygnaÅ‚u transmisji oraz obsÅ‚ugÄ™ IEEE 802.11h (DFS i TPC).
 
 %prep
 %setup -q
