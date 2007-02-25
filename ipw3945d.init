@@ -2,56 +2,61 @@
 #
 # Intel Pro/wireless 3945BG:   ipw3945d deamon
 #
-#chkconfig: 35 20 86
-# This is a daemon for automatically switching
+# chkconfig: 35 20 86
+# description: This is a daemon for automatically switching \
 # ipw3945d on to get access to any AP.
 #
- 
-# Source function library.
 
+# Source function library.
 . /etc/rc.d/init.d/functions
 
 DESC="Intel PRO/Wireless 3945BG"
 NAME="ipw3945d"
-RETVAL=0
 
-case "$1" in
- start)
-	if [ ! -f /var/run/ipw3945d.pid ]; then
-		msg_starting "$DESC: $NAME "
+start() {
+	if [ ! -f /var/lock/subsys/ipw3945d ]; then
+		msg_starting "$DESC: $NAME"
 		/sbin/modprobe --ignore-install ipw3945
 		daemon /sbin/ipw3945d --timeout=-1 --quiet
 		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ipw3945d
 	else
-		msg_already_running "$DESC: $NAME "
+		msg_already_running "$DESC: $NAME"
 	fi
-	exit $?
+}
+
+stop() {
+	if [ -f /var/lock/subsys/ipw3945d ]; then
+		msg_stopping "$DESC: $NAME"
+		/sbin/ipw3945d --kill
+		/sbin/modprobe -r --ignore-remove ipw3945
+		ok
+		rm -f /var/lock/subsys/ipw3945d
+	else
+		msg_not_running "$DESC: $NAME"
+	fi
+}
+
+RETVAL=0
+case "$1" in
+ start)
+ 	start
 	;;
  stop)
-	if [ -f /var/run/ipw3945d.pid ]; then
-		msg_stopping "$DESC: $NAME "
-		/sbin/ipw3945d --kill 
-		/sbin/modprobe -r --ignore-remove ipw3945
-		RETVAL=$?
-	else
-		msg_not_running "$DESC: $NAME "
-	fi
-	exit $?
+ 	stop
+	;;
+ restart|force-reload)
+	stop
+	sleep 1
+	start
 	;;
  status)
 	status /sbin/ipw3945d
 	exit $?
 	;;
- restart|force-reload)
-	$0 stop
-	sleep 1
-	$0 start
-	exit $?
-	;;				 
  *)
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
 	exit 3
 
 esac
 exit $RETVAL
-
