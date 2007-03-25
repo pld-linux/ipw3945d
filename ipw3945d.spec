@@ -5,7 +5,7 @@ Summary:	The regulatory daemon for controlling and configuring ipw3945 cards
 Summary(pl.UTF-8):	Demon do kontrolowania i konfigurowania kart ipw3945
 Name:		ipw3945d
 Version:	1.7.22
-Release:	0.2
+Release:	1
 License:	Intel Limited patents license
 Group:		Applications/demon
 Source0:	http://bughost.org/ipw3945/daemon/%{name}-%{version}.tgz
