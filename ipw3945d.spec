@@ -11,7 +11,7 @@ Group:		Applications/demon
 Source0:	http://bughost.org/ipw3945/daemon/%{name}-%{version}.tgz
 # Source0-md5:	097888f5be05eb2b9b87dcdbeeb948ce
 #Source1:	%{name}-rc.init
-URL:		http://ipw3945.sourceforge.net/
+URL:		http://bughost.org/ipw3945/
 BuildRequires:	rpmbuild(macros) >= 1.228
 Requires(post,preun):	/sbin/chkconfig
 Requires:	rc-scripts
