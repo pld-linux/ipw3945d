@@ -1,23 +1,25 @@
 #!/bin/sh
 #
-# Intel Pro/wireless 3945BG:   ipw3945d deamon
+# Intel PRO/Wireless 3945ABG:   ipw3945d deamon
 #
-# chkconfig: 35 20 86
-# description: This is a daemon for automatically switching \
-# ipw3945d on to get access to any AP.
+# chkconfig:	2345 09 91
+#
+# description:	This is a daemon for automatically switching \
+#		ipw3945d on to get access to any AP.
 #
 
 # Source function library.
 . /etc/rc.d/init.d/functions
 
-DESC="Intel PRO/Wireless 3945BG"
+DESC="Intel PRO/Wireless 3945ABG"
 NAME="ipw3945d"
 
 start() {
+	# Check if the service is already running?
 	if [ ! -f /var/lock/subsys/ipw3945d ]; then
 		msg_starting "$DESC: $NAME"
 		/sbin/modprobe --ignore-install ipw3945
-		daemon /sbin/ipw3945d --timeout=-1 --quiet
+		daemon --waitforname ipw3945d --waitfortime 3 /sbin/ipw3945d --timeout=-1 --quiet
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/ipw3945d
 	else
@@ -27,6 +29,7 @@ start() {
 
 stop() {
 	if [ -f /var/lock/subsys/ipw3945d ]; then
+		# Stop daemons.
 		msg_stopping "$DESC: $NAME"
 		/sbin/ipw3945d --kill
 		/sbin/modprobe -r --ignore-remove ipw3945
